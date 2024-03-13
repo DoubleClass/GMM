@@ -1,5 +1,5 @@
 #!/bin/bash  
-for((i=1;i<=1;i++));  
+for((i=0;i<=9;i++));  
 do   
     # echo $i
     TXT_PATH='/home/ubuntu/code/GMM_camera/GMM/results/imgr20_20_3e6_batch2_epoch2_order3_2000exp_re/test_'"$i"'.txt'
