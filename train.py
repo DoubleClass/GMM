@@ -28,7 +28,6 @@ from minigpt4.common.optims import (
 from minigpt4.common.registry import registry
 from minigpt4.common.utils import now
 
-# imports modules for registration
 from minigpt4.datasets.builders import *
 from minigpt4.models import *
 from minigpt4.processors import *
@@ -49,9 +48,6 @@ def parse_args():
     )
 
     args = parser.parse_args()
-    # if 'LOCAL_RANK' not in os.environ:
-    #     os.environ['LOCAL_RANK'] = str(args.local_rank)
-
     return args
 
 
@@ -76,10 +72,7 @@ def get_runner_class(cfg):
 
 
 def main():
-    # allow auto-dl completes on main process without timeout when using NCCL backend.
     # os.environ["NCCL_BLOCKING_WAIT"] = "1"
-
-    # set before init_distributed_mode() to ensure the same job_id shared across all ranks.
     job_id = now()
 
     cfg = Config(parse_args())
@@ -94,23 +87,12 @@ def main():
     cfg.pretty_print()
 
     task = tasks.setup_task(cfg)
-    
-    
     cfg_o = cfg.get_o_config()
     task_num = cfg_o.task_num
     model = task.build_model(cfg)
     for i in range(task_num):
         
         inside_i = i
-        # import pdb;pdb.set_trace()
-        # if inside_i > 0:
-        #     cfg.config.run.max_epoch = 2
-        #     cfg.config.run.init_lr = 3e-7
-        #     cfg.config.run.min_lr = 1e-7
-        #     cfg.config.run.warmup_lr = 1e-8
-
-        # if i != task_num - 1:
-        #     continue
 
         datasets = task.build_datasets(cfg, task_id=inside_i)
         

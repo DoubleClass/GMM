@@ -145,41 +145,6 @@ class Chat:
         else:
             conv.append_message(conv.roles[0], text)
 
-    # def answer(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
-    #            repetition_penalty=1.0, length_penalty=1, temperature=1.0, max_length=2000):
-    #     conv.append_message(conv.roles[1], None)
-    #     embs = self.get_context_emb(conv, img_list)
-
-    #     current_max_len = embs.shape[1] + max_new_tokens
-    #     if current_max_len - max_length > 0:
-    #         print('Warning: The number of tokens in current conversation exceeds the max length. '
-    #               'The model will not see the contexts outside the range.')
-    #     begin_idx = max(0, current_max_len - max_length)
-
-    #     embs = embs[:, begin_idx:]
-
-    #     outputs = self.model.llama_model.generate(
-    #         inputs_embeds=embs,
-    #         max_new_tokens=max_new_tokens,
-    #         stopping_criteria=self.stopping_criteria,
-    #         num_beams=num_beams,
-    #         do_sample=True,
-    #         min_length=min_length,
-    #         top_p=top_p,
-    #         repetition_penalty=repetition_penalty,
-    #         length_penalty=length_penalty,
-    #         temperature=temperature,
-    #     )
-    #     output_token = outputs[0]
-    #     if output_token[0] == 0:  # the model might output a unknow token <unk> at the beginning. remove it
-    #         output_token = output_token[1:]
-    #     if output_token[0] == 1:  # some users find that there is a start token <s> at the beginning. remove it
-    #         output_token = output_token[1:]
-    #     output_text = self.model.llama_tokenizer.decode(output_token, add_special_tokens=False)
-    #     output_text = output_text.split('###')[0]  # remove the stop sign '###'
-    #     output_text = output_text.split('Assistant:')[-1].strip()
-    #     conv.messages[-1][1] = output_text
-    #     return output_text, output_token.cpu().numpy()
     def answer(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
                repetition_penalty=1.0, length_penalty=1, temperature=1.0, max_length=2000):
         conv.append_message(conv.roles[1], None)
@@ -187,9 +152,7 @@ class Chat:
             embs = self.get_context_emb(conv, img_list)
         else:
             embs = self.get_context_emb_batched(conv, img_list)
-        # if self.task_id > 0:
-        #     import pdb; pdb.set_trace()
-        # import pdb; pdb.set_trace()
+
         current_max_len = embs.shape[1] + max_new_tokens
         if current_max_len - max_length > 0:
             print('Warning: The number of tokens in current conversation exceeds the max length. '
@@ -212,7 +175,6 @@ class Chat:
         )
         if img_list[0].shape[0] == 1:
             output_token = outputs[0]
-            # import pdb; pdb.set_trace()
             if output_token[0] == 0:  # the model might output a unknow token <unk> at the beginning. remove it
                 output_token = output_token[1:]
             if output_token[0] == 1:  # some users find that there is a start token <s> at the beginning. remove it
@@ -224,7 +186,6 @@ class Chat:
             return output_text, output_token.cpu().numpy()
         else:
             text_list = []
-            # import pdb; pdb.set_trace()
             for i in range(outputs.shape[0]):
                 output_token = outputs[i]
                 if output_token[0] == 0:  # the model might output a unknow token <unk> at the beginning. remove it
@@ -236,7 +197,6 @@ class Chat:
                 output_text = output_text.split('Assistant:')[-1].strip()
                 conv.messages[-1][1] = output_text
                 text_list.append(output_text)
-            # import pdb; pdb.set_trace()
             return text_list, output_token.cpu().numpy()
 
     def answer_batch(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
@@ -246,9 +206,6 @@ class Chat:
             embs = self.get_context_emb(conv, img_list)
         else:
             embs = self.get_context_emb_batched(conv, img_list)
-        # if self.task_id > 0:
-        #     import pdb; pdb.set_trace()
-        # import pdb; pdb.set_trace()
         current_max_len = embs.shape[1] + max_new_tokens
         if current_max_len - max_length > 0:
             print('Warning: The number of tokens in current conversation exceeds the max length. '
@@ -271,7 +228,6 @@ class Chat:
         )
         if img_list[0].shape[0] == 1:
             output_token = outputs[0]
-            # import pdb; pdb.set_trace()
             if output_token[0] == 0:  # the model might output a unknow token <unk> at the beginning. remove it
                 output_token = output_token[1:]
             if output_token[0] == 1:  # some users find that there is a start token <s> at the beginning. remove it
@@ -285,21 +241,7 @@ class Chat:
             text_list = []
             
             output_text = self.model.llama_tokenizer.batch_decode(outputs, add_special_tokens=False)
-            # import pdb; pdb.set_trace()
-            # for i in range(outputs.shape[0]):
-            #     output_token = outputs[i]
-            #     if output_token[0] == 0:  # the model might output a unknow token <unk> at the beginning. remove it
-            #         output_token = output_token[1:]
-            #     if output_token[0] == 1:  # some users find that there is a start token <s> at the beginning. remove it
-            #         output_token = output_token[1:]
-            #     output_text = self.model.llama_tokenizer.decode(output_token, add_special_tokens=False)
-            #     output_text = output_text.split('###')[0]  # remove the stop sign '###'
-            #     output_text = output_text.split('Assistant:')[-1].strip()
-            #     conv.messages[-1][1] = output_text
-            #     text_list.append(output_text)
-            # import pdb; pdb.set_trace()
             return output_text, outputs[0].cpu().numpy()
-            # return text_list, output_token.cpu().numpy()
 
 
     def upload_img(self, image, conv, img_list):
@@ -313,12 +255,10 @@ class Chat:
             if len(image.shape) == 3:
                 image = image.unsqueeze(0)
             image = image.to(self.device)
-        # import pdb; pdb.set_trace()
         image_emb, _ = self.model.encode_img(image)
         img_list.append(image_emb)
         conv.append_message(conv.roles[0], "<Img><ImageHere></Img>")
         msg = "Received."
-        # self.conv.append_message(self.conv.roles[1], msg)
         return msg
 
     def get_context_emb(self, conv, img_list):
@@ -351,10 +291,6 @@ class Chat:
             for i, seg in enumerate(prompt_segs)
         ]
         seg_embs = [self.model.llama_model.model.embed_tokens(seg_t) for seg_t in seg_tokens]
-
-
-        # mixed_embs = [emb for pair in zip(seg_embs[:-1], img_list) for emb in pair] + [seg_embs[-1]]
-        # mixed_embs = torch.cat(mixed_embs, dim=1)
 
         final_emb_list = []
         for i in range(img_list[0].shape[0]):

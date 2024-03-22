@@ -95,29 +95,6 @@ class CCSBUAlignBuilder(BaseDatasetBuilder):
 
         # create datasets
         dataset_cls = self.train_dataset_cls
-        cap_name = '10_10/filter_cap_10_10_task' + str(task_id) + '.json'
-        # cap_name = '10_10/filter_cap_10_10_task0.json'
-
-        cap_name = '20_20_wop/task' + str(task_id) +'.json'
-
-        cap_name = '10_10_wop/task' + str(task_id) +'.json'
-
-        cap_name = '10_10_wop/task' + str(task_id) +'.json'
-        cap_name = '5_5_wo_exp/task' + str(task_id) +'.json'
-        cap_name = '10_10_wop_few30/task' + str(task_id) +'.json'
-        cap_name = 'old_10_10_wop_few200/task' + str(task_id) +'.json'
-        # cap_name = 'old_10_10_wop_few50/task' + str(task_id) +'.json'
-        # cap_name = 'old_10_10_wop_few25/task' + str(task_id) +'.json'
-        # cap_name = '10_10_wop/task' + str(task_id) +'.json'
-        # cap_name = '10_10_w2000_exp_order1_all/task' + str(task_id) +'.json'
-        # cap_name = '10_10_wop/task' +  str(task_id) +'.json'
-        # cap_name = '20_20_order3_2000exp/task' + str(task_id) +'.json'
-
-        # cap_name = '100_20_order1_wo_exp_all/task' + str(task_id) + '.json'
-        # cap_name = '100_20_order3_wo_exp_all/task' + str(task_id) + '.json'
-        # cap_name = '100_5_order2_w2000exp_all/task' + str(task_id) + '.json'
-        # # cap_name = '100_20_order1_w2000exp_all/task' + str(task_id) + '.json'
-
         cap_name = '20_20_order3_2000exp/task' + str(task_id) + '.json'
 
         datasets['train'] = dataset_cls(

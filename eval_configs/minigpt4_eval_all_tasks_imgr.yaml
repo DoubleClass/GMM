@@ -5,9 +5,8 @@ model:
   end_sym: "###"
   low_resource: True
   prompt_template: '###Human: {} ###Assistant: '
-  # ckpt: ' /home/ubuntu/code/new-mini/MiniGPT-4/minigpt4/output/minigpt4_stage2_finetune/20231008192/checkpoint_4.pth'
-  ckpt: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/20231013151/checkpoint_4.pth'
-  ckpt_base: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/20231013151/'
+  ckpt: '/path/to/checkpoint_4.pth'
+  ckpt_base: '/path/to/checkpoint_dir/'
 datasets:
   cc_sbu_align:
     vis_processor:
@@ -23,7 +22,7 @@ run:
   seed: 2
 
 dataset: imagenet_R
-dataset_root: "/home/ubuntu/code/datasets/"
+dataset_root: "/path/to/datasets/"
 initial_increment: 20
 increment: 20
 class_num: 200

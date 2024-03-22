@@ -6,17 +6,7 @@ model:
   end_sym: "###"
   prompt_path: "prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/home/ubuntu/.cache/huggingface/hub/vicuna-7b/prerained_minigpt4_7b.pth'
-  # ckpt: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/tiny_100_5_batch2_epoch1_2_3e6_7_woexp_order2/20231111151/0/checkpoint_0.pth'
-  # ckpt: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/tiny_100_5_batch2_epoch1_2_3e6_7_order3/20231112152/0/checkpoint_0.pth'
-  # ckpt: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/tiny_100_5_batch2_epoch2_3e6_7_order3/20231113143/0/checkpoint_1.pth'
-  # ckpt: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/tiny_100_10_batch2_epoch1_2_3e6_7_order2/20231113142/0/checkpoint_1.pth'
-  # ckpt: '/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/tiny_100_10_batch2_epoch2_3e7_all_adaptlr/20231107115/0/checkpoint_1.pth'
-  # ckpt: '/home/ubuntu/code/new-mini/MiniGPT-4/minigpt4/output/minigpt4_stage2_finetune/20231008163/checkpoint_4.pth' # after b50-6 task 0
-  # ckpt: '/home/ubuntu/code/new-mini/MiniGPT-4/minigpt4/output/minigpt4_stage2_finetune/20231008163/checkpoint_4.pth' # task 1
-  # ckpt: '/home/ubuntu/code/new-mini/MiniGPT-4/minigpt4/output/minigpt4_stage2_finetune/20231008170/checkpoint_4.pth' # task2
-  # ckpt: '/home/ubuntu/code/new-mini/MiniGPT-4/minigpt4/output/minigpt4_stage2_finetune/20231008171/checkpoint_4.pth' # task3
-  # ckpt: '/home/ubuntu/code/new-mini/MiniGPT-4/minigpt4/output/minigpt4_stage2_finetune/20231008172/checkpoint_4.pth' # task4
+  ckpt: '/path/to/prerained_minigpt4_7b.pth'
 
 datasets:
   cc_sbu_align:
@@ -45,10 +35,7 @@ run:
   warmup_steps: 200
 
   seed: 42
-  # output_dir: "output/imgr20_20_3e6_batch2_epoch2_order3_2000exp"
-  # output_dir: "output/test_img100_10_10_reproduce_epoch5/"
-  output_dir: "output/imgr20_20_3e6_batch2_epoch2_order3_2000exp_re/"
-  # output_dir: "/root/siton-gpfs-caoxusheng/code/mini-CIL/minigpt4/output/test_cifar100_random_all_3e6_1e6_batch2_epoch3//"
+  output_dir: "output/"
 
   amp: True
   resume_ckpt_path: null

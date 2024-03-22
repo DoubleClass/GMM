@@ -2,11 +2,4 @@ datasets:
   cc_sbu_align:
     data_type: images
     build_info:
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/img_align2/
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/imgr_align/
-      storage: /mnt/sda/minigpt4-data/imgr_align/
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/tiny_align/
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/img100_random_align2/
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/cifar_align/
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/img100_old_align/
-      # storage: /root/siton-gpfs-archive/caoxusheng/minigpt-data/imga_align/
+      storage: /path/to/imgr_align/
