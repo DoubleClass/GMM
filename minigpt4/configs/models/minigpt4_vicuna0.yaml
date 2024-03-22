@@ -17,7 +17,7 @@ model:
   # generation configs
   prompt: ""
 
-  llama_model: "/home/ubuntu/.cache/huggingface/hub/vicuna-7b"
+  llama_model: "/path/to/vicuna-7b"
 
 preprocess:
     vis_processor:

@@ -22,6 +22,7 @@ from minigpt4.tasks import *
 from clip_base.datasets import build_cl_scenarios
 from torch.utils.data import DataLoader
 import clip
+from tqdm import tqdm
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Demo")
@@ -43,11 +44,9 @@ def parse_args():
 
 def setup_seeds(config):
     seed = config.run_cfg.seed + get_rank()
-    # import pdb; pdb.set_trace()
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-
     cudnn.benchmark = False
     cudnn.deterministic = True
 
@@ -68,9 +67,6 @@ setup_seeds(cfg)
 
 
 model_config = cfg.model_cfg
-# import pdb; pdb.set_trace()
-
-
 model_config.device_8bit = args.gpu_id
 model_config.ckpt = args.ckpt_path
 model_cls = registry.get_model_class(model_config.arch)
@@ -99,46 +95,20 @@ eval_dataset, classes_names = build_cl_scenarios(
         cfg_o, is_train=False, transforms=transforms
     )
 
-# import pdb; pdb.set_trace()
 new_class_name = get_ordered_class_name(cfg_o.class_order, classes_names)
 
-# import pdb; pdb.set_trace()
-
-
-
-from tqdm import tqdm
-# import warnings
-# warnings.filterwarnings("ignore")
-
 with open(args.txt_path, 'w') as f:
-
     eval_loader = DataLoader(eval_dataset[:args.task_id+1], batch_size=cfg_o.batch)
     names = new_class_name[:cfg_o.initial_increment + args.task_id * cfg_o.increment]
     for inputs, targets, task_ids in tqdm(eval_loader):
 
-
-
-
-        # import pdb; pdb.set_trace()
         chat_state = CONV_VISION.copy()
         img_list = []
-        # gr_img = torch.randn(2,3,224,224)
-        # gr_img = item[0]
         llm_message = chat.upload_img(inputs, chat_state, img_list)
-        # llm_message = chat.upload_img(gr_img, chat_state, img_list)
-        # import pdb; pdb.set_trace()
         chat.ask('what is this photo of?', chat_state)
         llm_message = chat.answer(conv=chat_state,img_list=img_list,num_beams=1,temperature=0.01,max_new_tokens=300,max_length=2000)[0]
-
-        # llm_message = chat.answer(conv=chat_state,img_list=img_list,num_beams=1,temperature=0.01, max_new_tokens=300,max_length=2000)[0]
-        # print('the label is ', new_class_name[item[1]])
-        # print('the message is ', llm_message)
         for i in range(inputs.shape[0]):
-
             str1 = 'the label is '  + new_class_name[targets[i]] + '\n'
             str2 = 'msg: '  + llm_message[i] + '\n'
-            # print(str1)
-            # print(str2)
-        # import pdb; pdb.set_trace()
             f.write(str1)
             f.write(str2)
