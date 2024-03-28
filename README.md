@@ -1,5 +1,5 @@
 # Generative Multi-modal Models are Good Class Incremental Learners
-
+This is the official code for our CVPR paper: <a href='https://arxiv.org/abs/2403.18383.pdf'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a>
 ## Getting Started
 
 ### Installation
@@ -57,3 +57,24 @@ bash eval_all.sh
 
 ```
 
+
+## Citation
+
+If you find our repo useful for your research, please consider citing our paper:
+
+```bibtex
+@article{cao2024GMM,
+  title={Generative Multi-modal Models are Good Class Incremental Learners},
+  author={Cao, Xusheng and Lu, Haori and Huang, Linlan and Liu, Xialei and Cheng, Ming-Ming},
+  journal={IEEE Computer Vision and Pattern Recognition (CVPR)},
+  year={2024}
+}
+```
+
+## License
+This code is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) for non-commercial use only.
+Please note that any commercial use of this code requires formal permission prior to use.
+
+## Contact
+
+For technical questions, please contact <a href="caoxusheng@mail.nankai.edu.cn">caoxusheng@mail.nankai.edu.cn</a> 
